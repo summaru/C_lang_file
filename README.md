@@ -1,1 +1,1 @@
-#my studying git replsitory
+#my studying git repository
