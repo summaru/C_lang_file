@@ -1,3 +1,0 @@
-# studying
-
-studying github
