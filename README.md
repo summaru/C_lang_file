@@ -1,1 +1,1 @@
-#my studying C repository
+#my studying code repository
