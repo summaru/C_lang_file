@@ -1,26 +1,26 @@
 /*
-/   name : pc_list_program(¹è¿­ »ç¿ë)
-/	¼³¸í¿ëÀ¸·Î ¸¸µë
+/   name : pc_list_program(ë°°ì—´ ì‚¬ìš©)
+/	ì„¤ëª…ìš©ìœ¼ë¡œ ë§Œë“¬
 /	
-/	±×´ë·Î ¾²¸é Á¤ÀÇÀÇ Ã¶Åğ°¡ ´Ô Á¤¼ö¸®¿¡ ¶³¾îÁü
+/	ê·¸ëŒ€ë¡œ ì“°ë©´ ì •ì˜ì˜ ì² í‡´ê°€ ë‹˜ ì •ìˆ˜ë¦¬ì— ë–¨ì–´ì§
 */
 
-#include <stdio.h> //ÀÌ°Å ¾²´Â ÀÌÀ¯´Â ´Ùµé ¾Ë°íÀÖ¾î¾ßÇÔ ¼ÖÁ÷È÷
-#include <string.h> // strcmp ,strcpyµîµî »ç¿ëÇÒ·Á°í
+#include <stdio.h> //ì´ê±° ì“°ëŠ” ì´ìœ ëŠ” ë‹¤ë“¤ ì•Œê³ ìˆì–´ì•¼í•¨ ì†”ì§íˆ
+#include <string.h> // strcmp ,strcpyë“±ë“± ì‚¬ìš©í• ë ¤ê³ 
 #include <stdlib.h>
-#include <windows.h> //ÀÌ°ÍÀº ¿¡·¯ÀÎ°Í °°´Ù°í »ı°¢ÇÒ‹š abort()¸¦ ÀÌ¿ëÇØ ºñÁ¤»óÀû Á¾·áÀ» ÇÒ·Á°í »ç¿ë
-					 //±×³É exit(0)ÇÏ°í ºñ½ÁÇÏ´Ù°í »ı°¢ÇÏ¸éµÊ(exitÀº ±×³É ²¨Áö°í , abort´Â ¿¡¸®Ã¢ ¶ß°í³ª¼­ ²¨Áö´Â Â÷ÀÌ)
+#include <windows.h> //ì´ê²ƒì€ ì—ëŸ¬ì¸ê²ƒ ê°™ë‹¤ê³  ìƒê°í• Â‹Âš abort()ë¥¼ ì´ìš©í•´ ë¹„ì •ìƒì  ì¢…ë£Œì„ í• ë ¤ê³  ì‚¬ìš©
+					 //ê·¸ëƒ¥ exit(0)í•˜ê³  ë¹„ìŠ·í•˜ë‹¤ê³  ìƒê°í•˜ë©´ë¨(exitì€ ê·¸ëƒ¥ êº¼ì§€ê³  , abortëŠ” ì—ë¦¬ì°½ ëœ¨ê³ ë‚˜ì„œ êº¼ì§€ëŠ” ì°¨ì´)
 #define MAX_SIZE 100
-//*************************±¸Á¶Ã¼ ¼±¾ğ**************************
+//*************************êµ¬ì¡°ì²´ ì„ ì–¸**************************
 /*
-/ etc_pay,user,pc_info´Â ±×³É »ç¿ëÀÌ µÇÁö¸¸
-/»õ·Î ÀúÀå°ø°£À» ¸¸µé·Á°í ÇÒ¶§´Â µû·Î ¼±¾ğÇØ¾ßÇÔ
+/ etc_pay,user,pc_infoëŠ” ê·¸ëƒ¥ ì‚¬ìš©ì´ ë˜ì§€ë§Œ
+/ìƒˆë¡œ ì €ì¥ê³µê°„ì„ ë§Œë“¤ë ¤ê³  í• ë•ŒëŠ” ë”°ë¡œ ì„ ì–¸í•´ì•¼í•¨
 /
-/								    ÀÌ°É ±¸Á¶Ã¼·Î º¸¸é
-/  ¿¹½Ã : Á¤¼öÇü ¼±¾ğ:int º¯¼öÀÌ¸§ ---------------------> struct _etc º¯¼öÀÌ¸§
-/														 struct _person º¯¼öÀÌ¸§
-/                                                        struct _list º¯¼öÀÌ¸§ 
-/                                                                µîµî
+/								    ì´ê±¸ êµ¬ì¡°ì²´ë¡œ ë³´ë©´
+/  ì˜ˆì‹œ : ì •ìˆ˜í˜• ì„ ì–¸:int ë³€ìˆ˜ì´ë¦„ ---------------------> struct _etc ë³€ìˆ˜ì´ë¦„
+/														 struct _person ë³€ìˆ˜ì´ë¦„
+/                                                        struct _list ë³€ìˆ˜ì´ë¦„ 
+/                                                                ë“±ë“±
 */
 struct _etc {
 	char name[MAX_SIZE];
@@ -31,20 +31,20 @@ struct _person {
 	char name[MAX_SIZE];
 	char id[MAX_SIZE];
 	char pw[MAX_SIZE];
-	int time; // ¼±ºÒ¿ë ÃæÀü½Ã°£
+	int time; // ì„ ë¶ˆìš© ì¶©ì „ì‹œê°„
 };
 
 struct _list {
 	struct _person data;
-}user_list[40]; // À¯Àú Á¤º¸ ÀúÀå¿ë ¸®½ºÆ®
+}user_list[40]; // ìœ ì € ì •ë³´ ì €ì¥ìš© ë¦¬ìŠ¤íŠ¸
 
 struct _pcdata {
 	int pc_number;
-	int t_t_n; // ¼±ºÒ, ÈÄºÒ, »ç¿ë¾ÈÇÔ Ã¼Å©¿ë , ¼±ºÒ = 0, ÈÄºÒ = 1, »ç¿ë¾ÈÇÔ = 2;
-	struct _person data; // À¯Àú Á¤º¸ ÀúÀå°ø°£
+	int t_t_n; // ì„ ë¶ˆ, í›„ë¶ˆ, ì‚¬ìš©ì•ˆí•¨ ì²´í¬ìš© , ì„ ë¶ˆ = 0, í›„ë¶ˆ = 1, ì‚¬ìš©ì•ˆí•¨ = 2;
+	struct _person data; // ìœ ì € ì •ë³´ ì €ì¥ê³µê°„
 }pc_info[40];
-//*************************ÇÔ¼ö ¼±¾ğ**************************
-struct _person signup(); // À¯ÀúÁ¤º¸ ±¸Á¶Ã¼¸¦ ¸®ÅÏ, ±ÍÂúÀÌÁò ¹®Á¦·Î ¾ÆÀÌµğ,ÀÌ¸§ Áßº¹Ã¼Å© ±â´ÉÀº ¾øÀ½,Áßº¹ÀÔ·Â½Ã ÇÁ·Î±×·¥ÀÌ Á¦´ë·Î µ¿ÀÛ ¾ÈÇÔ
+//*************************í•¨ìˆ˜ ì„ ì–¸**************************
+struct _person signup(); // ìœ ì €ì •ë³´ êµ¬ì¡°ì²´ë¥¼ ë¦¬í„´, ê·€ì°®ì´ì¦˜ ë¬¸ì œë¡œ ì•„ì´ë””,ì´ë¦„ ì¤‘ë³µì²´í¬ ê¸°ëŠ¥ì€ ì—†ìŒ,ì¤‘ë³µì…ë ¥ì‹œ í”„ë¡œê·¸ë¨ì´ ì œëŒ€ë¡œ ë™ì‘ ì•ˆí•¨
 void login(struct _list *list_data,struct _pcdata *pc_data);
 void logout(struct _list *list_data, struct _pcdata *pc_data);
 void user_list_info(struct _list *list_data);
@@ -52,40 +52,40 @@ void user_change(struct _list *list_data, struct _pcdata *pc_data);
 void pc_info_view(struct _pcdata *pc_data);
 void etc_pay_info(struct _etc *data);										
 void etc_pay_change(struct _etc *data);
-//Æ÷ÀÎÅÍ¸¦ ¾´ ÀÌÀ¯´Â ¹è¿­À» ¸Å°³º¯¼ö, ÇÔ¼öÀÌ¸§() ¿¡¼­ ()¾ÈÀÇ º¯¼ö·Î
-//¹è¿­À» º¸³»±â À§ÇØ,¿¹½Ã´Â ¸ŞÀÎÇÔ¼ö ÇÔ¼öÈ£ÃâºÎºĞ
-//voidÇü ÇÔ¼ö¾ÈÀÇ returnÀÇ »ç¿ëÀÌÀ¯:ÇÔ¼ö Á¾·á ¹× ¸ŞÀÎÇÔ¼ö·Î µ¹¾Æ°¨
-//*************************Àü¿ª,Á¤Àûº¯¼ö ¼±¾ğ**************************
-struct _person nulldata = { "\0","\0","\0",0}; // ÇÇ¾¾ Á¤º¸,À¯Àú¸®½ºÆ® ÃÊ±âÈ­(´ëÀÔ)¿ë
-static int count = 0;//È¸¿ø°¡ÀÔ ÂÊ¿¡¼­ ¸®½ºÆ® È½¼ö Ã¼Å©¿ë(À¯Àú¼ö)
-static struct _etc etc_obj[2] = { {"¶ó¸é",1500},{"½º³¼",1000} };
+//í¬ì¸í„°ë¥¼ ì“´ ì´ìœ ëŠ” ë°°ì—´ì„ ë§¤ê°œë³€ìˆ˜, í•¨ìˆ˜ì´ë¦„() ì—ì„œ ()ì•ˆì˜ ë³€ìˆ˜ë¡œ
+//ë°°ì—´ì„ ë³´ë‚´ê¸° ìœ„í•´,ì˜ˆì‹œëŠ” ë©”ì¸í•¨ìˆ˜ í•¨ìˆ˜í˜¸ì¶œë¶€ë¶„
+//voidí˜• í•¨ìˆ˜ì•ˆì˜ returnì˜ ì‚¬ìš©ì´ìœ :í•¨ìˆ˜ ì¢…ë£Œ ë° ë©”ì¸í•¨ìˆ˜ë¡œ ëŒì•„ê°
+//*************************ì „ì—­,ì •ì ë³€ìˆ˜ ì„ ì–¸**************************
+struct _person nulldata = { "\0","\0","\0",0}; // í”¼ì”¨ ì •ë³´,ìœ ì €ë¦¬ìŠ¤íŠ¸ ì´ˆê¸°í™”(ëŒ€ì…)ìš©
+static int count = 0;//íšŒì›ê°€ì… ìª½ì—ì„œ ë¦¬ìŠ¤íŠ¸ íšŸìˆ˜ ì²´í¬ìš©(ìœ ì €ìˆ˜)
+static struct _etc etc_obj[2] = { {"ë¼ë©´",1500},{"ìŠ¤ë‚µ",1000} };
 //*************************main function**************************
 int main() {
 	struct _person user;
 	int i,cho;
-	for (i = 0; i < 40; i++) {      // ÇÇ¾¾ Á¤º¸ ÃÊ±âÈ­
+	for (i = 0; i < 40; i++) {      // í”¼ì”¨ ì •ë³´ ì´ˆê¸°í™”
 		pc_info[i].pc_number = i + 1;
 		pc_info[i].data = nulldata;
 		pc_info[i].t_t_n = 2;
 	}
-	for (i = 0; i < 40; i++) {      // À¯Àú¸®½ºÆ® Á¤º¸ ÃÊ±âÈ­
+	for (i = 0; i < 40; i++) {      // ìœ ì €ë¦¬ìŠ¤íŠ¸ ì •ë³´ ì´ˆê¸°í™”
 		user_list[i].data = nulldata;
 	}
-	while (1) { // ¹«ÇÑ ·çÇÁ
-		puts("pc¹æ °ü¸® ¸®½ºÆ®");//¹®ÀÚ¿­ Ãâ·Â¸¸ µÇ´Â ÇÔ¼ö,°£´ÜÇÏ°Ô ¸»ÇÏ¸é ÀÚµ¿À¸·Î \n°¡ µÇ´ÂÇÔ¼ö
-		printf("1.È¸¿ø°¡ÀÔ\n2.È¸¿ø ·Î±×ÀÎ\n3.È¸¿ø¸®½ºÆ®\n");
-		printf("4.È¸¿ø ¼öÁ¤\n5.È¸¿ø ·Î±×¾Æ¿ô\n6.pc Á¤º¸\n7.±âÅ¸±İ¾× Á¤º¸\n8.±âÅ¸±İ¾× ¼öÁ¤\n0.Á¾·á\n>>");
+	while (1) { // ë¬´í•œ ë£¨í”„
+		puts("pcë°© ê´€ë¦¬ ë¦¬ìŠ¤íŠ¸");//ë¬¸ìì—´ ì¶œë ¥ë§Œ ë˜ëŠ” í•¨ìˆ˜,ê°„ë‹¨í•˜ê²Œ ë§í•˜ë©´ ìë™ìœ¼ë¡œ \nê°€ ë˜ëŠ”í•¨ìˆ˜
+		printf("1.íšŒì›ê°€ì…\n2.íšŒì› ë¡œê·¸ì¸\n3.íšŒì›ë¦¬ìŠ¤íŠ¸\n");
+		printf("4.íšŒì› ìˆ˜ì •\n5.íšŒì› ë¡œê·¸ì•„ì›ƒ\n6.pc ì •ë³´\n7.ê¸°íƒ€ê¸ˆì•¡ ì •ë³´\n8.ê¸°íƒ€ê¸ˆì•¡ ìˆ˜ì •\n0.ì¢…ë£Œ\n>>");
 		scanf("%d", &cho);
 		switch (cho) {
 		case 1:
 			if (count == 40) {
-				puts("ÃÊ°úÇÏ¿´½À´Ï´Ù");
-				continue;//·çÇÁ¹® ¾Õ,puts("pc¹æ °ü¸® ¸®½ºÆ®")ÇÔ¼ö ÀüÀ¸·Î µ¹¾Æ°¨
+				puts("ì´ˆê³¼í•˜ì˜€ìŠµë‹ˆë‹¤");
+				continue;//ë£¨í”„ë¬¸ ì•,puts("pcë°© ê´€ë¦¬ ë¦¬ìŠ¤íŠ¸")í•¨ìˆ˜ ì „ìœ¼ë¡œ ëŒì•„ê°
 			}
 			user=signup();
 			user_list[count].data = user;
 			count++;
-			puts("È¸¿ø°¡ÀÔÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù\n\n");
+			puts("íšŒì›ê°€ì…ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤\n\n");
 			break;
 		case 2:
 			login(user_list,pc_info);
@@ -109,79 +109,81 @@ int main() {
 			etc_pay_change(etc_obj);
 			break;
 		case 0:
-			return 0; // ¸ŞÀÎÇÔ¼ö Á¾·á -> ÇÁ·Î±×·¥ Á¾·á , exit(0)À¸·Î ¹Ù²¨µµ ±¦ÂúÀ½
+			return 0; // ë©”ì¸í•¨ìˆ˜ ì¢…ë£Œ -> í”„ë¡œê·¸ë¨ ì¢…ë£Œ , exit(0)ìœ¼ë¡œ ë°”êº¼ë„ ê´œì°®ìŒ
 			break;
 		default:
-			puts("´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä");
+			puts("ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”");
 			break;
 		}
 	}
 }
-//************************* ÇÔ¼ö Á¤ÀÇ **************************
+//************************* í•¨ìˆ˜ ì •ì˜ **************************
 struct _person signup() {
-	struct _person temp; //ÀÔ·Â ¹× ¸®ÅÏ(º¯È¯)¿ëÀ¸·Î ¾¸,È¸¿ø°¡ÀÔ ÇÔ¼ö°¡ ³¡³ª¸é ÀÚµ¿À¸·Î »ç¶óÁü
-	printf("ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä:");
+	struct _person temp; //ì…ë ¥ ë° ë¦¬í„´(ë³€í™˜)ìš©ìœ¼ë¡œ ì”€,íšŒì›ê°€ì… í•¨ìˆ˜ê°€ ëë‚˜ë©´ ìë™ìœ¼ë¡œ ì‚¬ë¼ì§
+	printf("ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”:");
 	scanf("%s", &temp.name);
-	printf("¾ÆÀÌµğÀ» ÀÔ·ÂÇÏ¼¼¿ä:");
+	printf("ì•„ì´ë””ì„ ì…ë ¥í•˜ì„¸ìš”:");
 	scanf("%s", &temp.id);
-	printf("ºñ¹Ğ¹øÈ£À» ÀÔ·ÂÇÏ¼¼¿ä:");
+	printf("ë¹„ë°€ë²ˆí˜¸ì„ ì…ë ¥í•˜ì„¸ìš”:");
 	scanf("%s", &temp.pw);
 	temp.time = 0;
 
-	return temp;//¸®ÅÏÇÏ¸é¼­ mainÇÔ¼ö¿¡ ÀÖ´Â user·Î 'º¹»çµÊ'(°ªÀ» Àü´ŞÇÏ´Â°Ô ¾Æ´Ñ º¹»ç)
+	return temp;//ë¦¬í„´í•˜ë©´ì„œ mainí•¨ìˆ˜ì— ìˆëŠ” userë¡œ 'ë³µì‚¬ë¨'(ê°’ì„ ì „ë‹¬í•˜ëŠ”ê²Œ ì•„ë‹Œ ë³µì‚¬)
 }
 
 
 void login(struct _list *list_data, struct _pcdata *pc_data) {
 	char id_input[MAX_SIZE];
 	char pw_input[MAX_SIZE];
-	int i, j,num,cho,time;
-	printf("¾ÆÀÌµğ¸¦ ÀÔ·ÂÇÏ¼¼¿ä");
-	scanf("%s", id_input);
-	for (i = 0; i < 40; i++) { // ¾ÆÀÌµğ °Ë»ö ·çÇÁ
+	int i=0, j,num,cho,time;
+	
+	while(i < 40) { // ì•„ì´ë”” ê²€ìƒ‰ ë£¨í”„
+		printf("ì•„ì´ë””ë¥¼ ì…ë ¥í•˜ì„¸ìš”");
+		scanf("%s", id_input);
 		if (strcmp(list_data[i].data.id, id_input) == 0) {
-			printf("¾ÆÀÌµğ<%8s>¸¦ Ã£¾Ò½À´Ï´Ù,ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä:", id_input);
+			printf("ì•„ì´ë””<%8s>ë¥¼ ì°¾ì•˜ìŠµë‹ˆë‹¤,ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ì„¸ìš”:", id_input);
 			scanf("%s", pw_input);
 				if (strcmp(list_data[i].data.pw, pw_input) == 0) {
-						printf("·Î±×ÀÎ µÇ¾ú½À´Ï´Ù\n");
-						j = i; //j´Â ÇÇ¾¾ Á¤º¸ ÀúÀåÇÒ¶§ »ç¿ëÇÔ
-						break; //°Ë»ö ·çÇÁ Å»Ãâ
+						printf("ë¡œê·¸ì¸ ë˜ì—ˆìŠµë‹ˆë‹¤\n");
+						j = i; //jëŠ” í”¼ì”¨ ì •ë³´ ì €ì¥í• ë•Œ ì‚¬ìš©í•¨
+						break; //ê²€ìƒ‰ ë£¨í”„ íƒˆì¶œ
 					}
 					else {
-						printf("ºñ¹Ğ¹øÈ£°¡ Æ²·È½À´Ï´Ù\n\n");
+						printf("ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë ¸ìŠµë‹ˆë‹¤\n\n");
 						i = 0;
-						continue; // i=0À¸·Î ÇØ¼­ ·çÇÁ¹®À» Ã³À½ºÎÅÍ ´Ù½Ã ½ÃÀÛ½ÃÅ´
+						continue; // i=0ìœ¼ë¡œ í•´ì„œ ë£¨í”„ë¬¸ì„ ì²˜ìŒë¶€í„° ë‹¤ì‹œ ì‹œì‘ì‹œí‚´
 					}
 				}
-		else if(i == 39){ //È¸¿ø °Ë»öÀÌ ¾È‰çÀ»¶§
-				printf("È¸¿øÀÌ Á¸ÀçÇÏÁö¾Ê½À´Ï´Ù\n\n");
+		else if(i == 39){ //íšŒì› ê²€ìƒ‰ì´ ì•ˆÂ‰ç‘›ë»‘
+				printf("íšŒì›ì´ ì¡´ì¬í•˜ì§€ì•ŠìŠµë‹ˆë‹¤\n\n");
 				return;
 			}
+		i++;
 	}
-	printf("¸î¹ø ÇÇ¾¾¿¡¼­ ÇÃ·¹ÀÌ ÇÏ½Ã°Ú½À´Ï±î?(¹øÈ£ ÀÔ·Â):");
+	printf("ëª‡ë²ˆ í”¼ì”¨ì—ì„œ í”Œë ˆì´ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?(ë²ˆí˜¸ ì…ë ¥):");
 	scanf("%d",&num);
 	num = num - 1;
 	if (pc_data[num].t_t_n != 2) {
-		printf("ÀÌ ¹øÈ£´Â ÀÌ¹Ì »ç¿ëÀÚ°¡ ÀÖ½À´Ï´Ù\n¸ŞÀÎÈ­¸éÀ¸·Î µ¹¾Æ°¡°Ú½À´Ï´Ù\n\n");
+		printf("ì´ ë²ˆí˜¸ëŠ” ì´ë¯¸ ì‚¬ìš©ìê°€ ìˆìŠµë‹ˆë‹¤\në©”ì¸í™”ë©´ìœ¼ë¡œ ëŒì•„ê°€ê² ìŠµë‹ˆë‹¤\n\n");
 		return;
 	}
 	
-	printf("0.¼±ºÒ , 1.ÈÄºÒ>>");
+	printf("0.ì„ ë¶ˆ , 1.í›„ë¶ˆ>>");
 	scanf("%d", &cho);
 	switch (cho) {
 	case 0:
 		pc_data[num].t_t_n = 0;
-		printf("½Ã°£(³²Àº ½Ã°£:%2d):",list_data[j].data.time);
+		printf("ì‹œê°„(ë‚¨ì€ ì‹œê°„:%2d):",list_data[j].data.time);
 		scanf("%d", &time);
-		printf("ÁöºÒ ±İ¾×:%7d, ÃæÀü ½Ã°£:%2d\n\n", time * 1000, time);
+		printf("ì§€ë¶ˆ ê¸ˆì•¡:%7d, ì¶©ì „ ì‹œê°„:%2d\n\n", time * 1000, time);
 		list_data[j].data.time = list_data[j].data.time+time;
 		break;
 	case 1:
 		pc_data[num].t_t_n = 1;
-		printf("ÈÄ¿¡ ÁöºÒÇÏ½Ê½Ã¿ä\n\n");
+		printf("í›„ì— ì§€ë¶ˆí•˜ì‹­ì‹œìš”\n\n");
 		break;
 	default:
-		puts("Àç·Î±×ÀÎ ºÎÅ¹µå¸³´Ï´Ù");
+		puts("ì¬ë¡œê·¸ì¸ ë¶€íƒë“œë¦½ë‹ˆë‹¤");
 		return;
 	}
 	pc_data[num].data = list_data[j].data;
@@ -191,7 +193,7 @@ void login(struct _list *list_data, struct _pcdata *pc_data) {
 void user_list_info(struct _list *list_data) {
 	int i;
 	for (i = 0; i < 40; i++) {
-		printf("|ÀÌ¸§:%10s|ID:%10s|:PW:%10s|\n", list_data[i].data.name, list_data[i].data.id
+		printf("|ì´ë¦„:%10s|ID:%10s|:PW:%10s|\n", list_data[i].data.name, list_data[i].data.id
 			, list_data[i].data.pw);
 	}
 	puts("\n");
@@ -200,55 +202,55 @@ void user_list_info(struct _list *list_data) {
 void user_change(struct _list *list_data, struct _pcdata *pc_data) {
 	int i,j,count,cho;
 	char input[MAX_SIZE];
-	printf("Ã£À» ¾ÆÀÌµğ(ÀÌ¸§À¸·Î ÀÔ·Â):");
+	printf("ì°¾ì„ ì•„ì´ë””(ì´ë¦„ìœ¼ë¡œ ì…ë ¥):");
 	scanf("%s", input);
 	for (i = 0; i < 40; i++) {
 		if (strcmp(list_data[i].data.name,input) == 0) {
 			for (j = 0; j < 40; j++) {
 				if (strcmp(pc_data[j].data.name, input) == 0) {
-					puts("·Î±×¾Æ¿ôÈÄ º¯°æÇÏ½Ê½Ã¿À");
+					puts("ë¡œê·¸ì•„ì›ƒí›„ ë³€ê²½í•˜ì‹­ì‹œì˜¤");
 					return;
 				}
 			}
-			puts("¾ÆÀÌµğ¸¦ Ã£¾Ò½À´Ï´Ù");
+			puts("ì•„ì´ë””ë¥¼ ì°¾ì•˜ìŠµë‹ˆë‹¤");
 			count = i;
 			break;
 		}
 		else if (i == 39) {
-			puts("¾ÆÀÌµğ°¡ ¾ø½À´Ï´Ù\n");
+			puts("ì•„ì´ë””ê°€ ì—†ìŠµë‹ˆë‹¤\n");
 			return;
 		}
 	}
 	while (1) {
-		printf("ÀÌ È¸¿ø¿¡¼­<%10s> º¯°æÇÏ°í½ÍÀº°ÍÀ» °í¸£¼¼¿ä(1.¾ÆÀÌµğ 2.ºñ¹Ğ¹øÈ£):");
+		printf("ì´ íšŒì›ì—ì„œ<%10s> ë³€ê²½í•˜ê³ ì‹¶ì€ê²ƒì„ ê³ ë¥´ì„¸ìš”(1.ì•„ì´ë”” 2.ë¹„ë°€ë²ˆí˜¸):");
 		scanf("%d", &cho);
 		switch (cho) {
 		case 1:
-			printf("»õ·Î ¾²´Â ¾ÆÀÌµğ¸¦ ÀÔ·Â:");
+			printf("ìƒˆë¡œ ì“°ëŠ” ì•„ì´ë””ë¥¼ ì…ë ¥:");
 			scanf("%s", input);
 			strcpy(list_data[count].data.id,input);
 			break;
 		case 2:
-			printf("»õ·Î ¾²´Â ºñ¹Ğ¹øÈ£¸¦ ÀÔ·Â:");
+			printf("ìƒˆë¡œ ì“°ëŠ” ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥:");
 			scanf("%s", input);
 			strcpy(list_data[count].data.pw, input);
 			break;
 		default:
-			puts("´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä\n");
+			puts("ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”\n");
 			continue;
 		}
-		puts("º¯°æµÇ¾ú½À´Ï´Ù\n");
+		puts("ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤\n");
 		break;
 	}
 }
 /*
-/  i, u_i´Â ¹İº¹¹® µ¹¸®±â¿ëÀÌ°í
-/  j, u_j´Â ¹İº¹¹® È½¼ö¸¦ ÀúÀåÇÏ´Â ¿ë
+/  i, u_iëŠ” ë°˜ë³µë¬¸ ëŒë¦¬ê¸°ìš©ì´ê³ 
+/  j, u_jëŠ” ë°˜ë³µë¬¸ íšŸìˆ˜ë¥¼ ì €ì¥í•˜ëŠ” ìš©
 */
 void logout(struct _list *list_data, struct _pcdata *pc_data) {
 	int i, j,u_i,u_j, money=0, buy;
 	char input[MAX_SIZE];
-	printf("·Î±×¾Æ¿ôÇÒ ¾ÆÀÌµğ¸¦ ÀÔ·ÂÇÏ¼¼¿ä:");
+	printf("ë¡œê·¸ì•„ì›ƒí•  ì•„ì´ë””ë¥¼ ì…ë ¥í•˜ì„¸ìš”:");
 	scanf("%s", input);
 	for (i = 0; i < 40; i++) {
 		if (strcmp(input, pc_data[i].data.id) == 0) {
@@ -257,50 +259,50 @@ void logout(struct _list *list_data, struct _pcdata *pc_data) {
 					u_j = u_i;
 				}
 			}
-			printf("|ÄÄÇ»ÅÍ ¹øÈ£ :%2d|ID:%10s|\n", pc_data[i].pc_number, pc_data[i].data.id);
+			printf("|ì»´í“¨í„° ë²ˆí˜¸ :%2d|ID:%10s|\n", pc_data[i].pc_number, pc_data[i].data.id);
 			j = i;
 			break;
 		}
 		else if (i == 39) {
-			printf("»ç¿ëÀÚ°¡ ¾ø½À´Ï´Ù\n\n");
+			printf("ì‚¬ìš©ìê°€ ì—†ìŠµë‹ˆë‹¤\n\n");
 			return;
 		}
 	}
-	printf("±âÅ¸:%8s´Â ¾ó¸¶ »ç¼Ì½À´Ï±î<°¡°İ%6d>:",etc_obj[0].name,etc_obj[0].money);
+	printf("ê¸°íƒ€:%8sëŠ” ì–¼ë§ˆ ì‚¬ì…¨ìŠµë‹ˆê¹Œ<ê°€ê²©%6d>:",etc_obj[0].name,etc_obj[0].money);
 	scanf("%d", &buy);
 	money = buy * etc_obj[0].money;
-	printf("±âÅ¸:%8s´Â ¾ó¸¶ »ç¼Ì½À´Ï±î<°¡°İ%6d>:", etc_obj[1].name, etc_obj[1].money);
+	printf("ê¸°íƒ€:%8sëŠ” ì–¼ë§ˆ ì‚¬ì…¨ìŠµë‹ˆê¹Œ<ê°€ê²©%6d>:", etc_obj[1].name, etc_obj[1].money);
 	scanf("%d", &buy);
 	money = buy * etc_obj[1].money;
 	switch (pc_data[j].t_t_n) {
 	case 0:
-		printf("¸î ½Ã°£ ÇÏ¼Ì½À´Ï±î?<³²Àº½Ã°£:%2d½Ã°£>:",pc_data[j].data.time);
+		printf("ëª‡ ì‹œê°„ í•˜ì…¨ìŠµë‹ˆê¹Œ?<ë‚¨ì€ì‹œê°„:%2dì‹œê°„>:",pc_data[j].data.time);
 		scanf("%d", &buy);
-		list_data[u_j].data.time = pc_data[j].data.time = pc_data[j].data.time - buy; // list_data, pc_dataÀÇ ½Ã°£(¼±ºÒ)¿¡ Â÷°¨µÈ ½Ã°£ ´ëÀÔ
+		list_data[u_j].data.time = pc_data[j].data.time = pc_data[j].data.time - buy; // list_data, pc_dataì˜ ì‹œê°„(ì„ ë¶ˆ)ì— ì°¨ê°ëœ ì‹œê°„ ëŒ€ì…
 			if (pc_data[j].data.time < 0) {
-				puts("½Ã°£ÀÌ ¾ğ´õÇÃ·Î¿ì Çß½À´Ï´Ù");
+				puts("ì‹œê°„ì´ ì–¸ë”í”Œë¡œìš° í–ˆìŠµë‹ˆë‹¤");
 				abort();
 		}
 		break;
 	case 1:
-		puts("¾ó¸¶³ª ½Ã°£À» »ç¿ëÇÏ¼Ì½À´Ï±î?(½Ã°£´ç 1000¿ø):");
+		puts("ì–¼ë§ˆë‚˜ ì‹œê°„ì„ ì‚¬ìš©í•˜ì…¨ìŠµë‹ˆê¹Œ?(ì‹œê°„ë‹¹ 1000ì›):");
 		scanf("%d", &buy);
 		money = buy * 1000;
-		printf("±âÅ¸:%8s´Â ¾ó¸¶ »ç¼Ì½À´Ï±î<°¡°İ%6d>:", etc_obj[0].name, etc_obj[0].money);
+		printf("ê¸°íƒ€:%8sëŠ” ì–¼ë§ˆ ì‚¬ì…¨ìŠµë‹ˆê¹Œ<ê°€ê²©%6d>:", etc_obj[0].name, etc_obj[0].money);
 		scanf("%d", &buy);
 		money = buy * etc_obj[0].money;
-		printf("±âÅ¸:%8s´Â ¾ó¸¶ »ç¼Ì½À´Ï±î<°¡°İ%6d>:", etc_obj[1].name, etc_obj[1].money);
+		printf("ê¸°íƒ€:%8sëŠ” ì–¼ë§ˆ ì‚¬ì…¨ìŠµë‹ˆê¹Œ<ê°€ê²©%6d>:", etc_obj[1].name, etc_obj[1].money);
 		scanf("%d", &buy);
 		money = buy * etc_obj[1].money;
 		break;
 	default:
-		puts("¾Ë¼ö¾ø´Â ¿À·ù");
+		puts("ì•Œìˆ˜ì—†ëŠ” ì˜¤ë¥˜");
 		abort();
 		break;
 	}
 	pc_data[j].t_t_n = 2;
 	pc_data[j].data = nulldata;
-	printf("°¡°İÀº %6dÀÔ´Ï´Ù\n\n", money);
+	printf("ê°€ê²©ì€ %6dì…ë‹ˆë‹¤\n\n", money);
 }
 
 
@@ -309,19 +311,19 @@ void pc_info_view(struct _pcdata *pc_data) {
 	char buf[MAX_SIZE];
 	for (i = 0; i < 40; i++) {
 		if (pc_data[i].t_t_n == 0) {
-			strcpy(buf,"¼±ºÒ");
+			strcpy(buf,"ì„ ë¶ˆ");
 		}
 		else if (pc_data[i].t_t_n == 1) {
-			strcpy(buf,"ÈÄºÒ");
+			strcpy(buf,"í›„ë¶ˆ");
 		}
 		else if(pc_data[i].t_t_n == 2) {
-			strcpy(buf,"»ç¿ë¾ÈÇÔ");
+			strcpy(buf,"ì‚¬ìš©ì•ˆí•¨");
 		}
 		else {
-			printf("¾Ë¼ö¾ø´Â ¿À·ù");
+			printf("ì•Œìˆ˜ì—†ëŠ” ì˜¤ë¥˜");
 			abort();
 		}
-		printf("|¹øÈ£:%2d|ÁöºÒ¹æ½Ä:%10s|»ç¿ëÀÚ ¾ÆÀÌµğ:%10s|\n",pc_data[i].pc_number,
+		printf("|ë²ˆí˜¸:%2d|ì§€ë¶ˆë°©ì‹:%10s|ì‚¬ìš©ì ì•„ì´ë””:%10s|\n",pc_data[i].pc_number,
 			buf,pc_data[i].data.id);
 	}
 	
@@ -329,30 +331,30 @@ void pc_info_view(struct _pcdata *pc_data) {
 }
 
 void etc_pay_info(struct _etc *data) {
-	printf("|ÀÌ¸§:%8s|°¡°İ:%5d|\n", data[0].name, data[0].money);
-	printf("|ÀÌ¸§:%8s|°¡°İ:%5d|\n", data[1].name, data[1].money);
+	printf("|ì´ë¦„:%8s|ê°€ê²©:%5d|\n", data[0].name, data[0].money);
+	printf("|ì´ë¦„:%8s|ê°€ê²©:%5d|\n", data[1].name, data[1].money);
 	puts("\n");
 }
 
 void etc_pay_change(struct _etc *data) {
 	int i,input_int;
 	char input[MAX_SIZE];
-	printf("±âÅ¸ ±İ¾× ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä:");
+	printf("ê¸°íƒ€ ê¸ˆì•¡ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”:");
 	scanf("%s", input);
 	for (i = 0; i < 2; i++) {
 		if (strcmp(input, data[i].name) == 0) {
-			printf("|ÀÌ¸§:%8s|°¡°İ:%6d|\n", data[i].name, data[i].money);
-			puts("º¯°æ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä");
+			printf("|ì´ë¦„:%8s|ê°€ê²©:%6d|\n", data[i].name, data[i].money);
+			puts("ë³€ê²½ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”");
 			scanf("%s", input);
-			puts("º¯°æ °¡°İÀ» ÀÔ·ÂÇÏ¼¼¿ä");
+			puts("ë³€ê²½ ê°€ê²©ì„ ì…ë ¥í•˜ì„¸ìš”");
 			scanf("%d", input_int);
 			strcpy(data[i].name, input);
 			data[i].money = input_int;
-			puts("º¯°æµÇ¾ú½À´Ï´Ù\n");
+			puts("ë³€ê²½ë˜ì—ˆìŠµë‹ˆë‹¤\n");
 			break;
 		}
 		else if (i == 1) {
-			puts("¸ñ·Ï¿¡´Â ¾ø½À´Ï´Ù\n");
+			puts("ëª©ë¡ì—ëŠ” ì—†ìŠµë‹ˆë‹¤\n");
 			return;
 		}
 	}
