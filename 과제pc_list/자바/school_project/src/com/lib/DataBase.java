@@ -70,7 +70,7 @@ public class DataBase{
 				continue;
 			}
 			int number = 0;
-			if(number < 1 || number > 40){
+			while(number < 1 || number > 40){
 				int i = 1;
 				for(Pc pc : pcList){
 					if(pc.getonOff() == Pc.ON){
@@ -89,11 +89,15 @@ public class DataBase{
 				}
 				System.out.print("몇번 좌석으로 하시겠습니까?:");
 				number = numScan.nextInt();
-				System.out.println("다시 입력하십시오");
+				if(number < 1 || number > 40){
+					System.out.println("다시 입력하십시오");
+					continue;
+				}
 			}
-			Pc pc = pcList.get(number-1);
 			
-			if(pc.getonOff() == Pc.ON){
+			Pc pcset = pcList.get(number-1);
+			
+			if(pcset.getonOff() == Pc.ON){
 				System.out.print("이미 사용중인 좌석입니다");
 				continue;
 			}
@@ -115,7 +119,7 @@ public class DataBase{
 			else if(user.getRemainTime() != 0 && cho == 0){
 				user.setRemainTime(0);
 			}
-			pc.logIn(user,prePaid);
+			pcset.logIn(user,prePaid);
 			System.out.println("로그인 완료");
 			SystemUtil.threeSencondCls();
 			return;

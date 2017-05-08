@@ -82,6 +82,7 @@ public class Pc {
 			user.setPrepaid(true);
 			user.setRemainTime(setTime);
 			onOff = ON;
+			this.user = user;
 			System.out.print(t+"시간 결제하였습니다");
 			time = SystemUtil.getCurrentSecond();
 		}
@@ -123,12 +124,11 @@ public class Pc {
 			break;
 		default:
 			System.out.print("error , 메인화면으로 돌아갑니다");
-			
-			
+			SystemUtil.threeSencondCls();
 			return;
 		}
 		System.out.print("구매완료");
-		
+		SystemUtil.threeSencondCls();
 	}
 	public User getUser(){
 		return user;
