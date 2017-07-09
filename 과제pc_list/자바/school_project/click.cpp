@@ -19,10 +19,10 @@ int main()
 	GetCurrentDirectory(MAX_PATH, Path);
 	strcat(Path,link);
 	
-	fp = fopen("¸Å°³º¯¼ö.txt","r");
+	fp = fopen("ë§¤ê°œë³€ìˆ˜.txt","r");
 	if(fp == NULL)
 	{
-		fp = fopen("¸Å°³º¯¼ö.txt","w+");
+		fp = fopen("ë§¤ê°œë³€ìˆ˜.txt","w+");
 		return 0;
 	}
 	
