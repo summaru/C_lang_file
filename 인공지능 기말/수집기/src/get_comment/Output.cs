@@ -9,7 +9,7 @@ namespace get_comment
     class Output
     {
         private Queue<string> cache = null;
-        private FileStream fStream = null;
+        private string path;
         private Thread subFileThead;
         
         private int current;
@@ -32,20 +32,29 @@ namespace get_comment
                     
                     while (c.TryDequeue(out buf))
                     {
-                        byteD = Encoding.UTF8.GetBytes(buf+Environment.NewLine);
-                
-                        fStream.Write(byteD,0,byteD.Length-1);
-                
+                        
+                        using (var fStream = File.Open(path, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
+                        {
+                            using (var writer = new StreamWriter(fStream, Encoding.UTF8))
+                            {
+                                writer.Write(buf);
+                            }
+                        }
                         current++;
                     }
                     State.FileEnd = true;
                     break;
                 }
                 if(!c.TryDequeue(out buf)) {continue;}
-                byteD = Encoding.UTF8.GetBytes(buf+Environment.NewLine);
-                
-                fStream.Write(byteD,0,byteD.Length-1);
-                
+
+                using (var fStream = File.Open(path, FileMode.Append, FileAccess.Write, FileShare.ReadWrite))
+                {
+                    using (var writer = new StreamWriter(fStream, Encoding.UTF8))
+                    {
+                        writer.Write(buf + Environment.NewLine);
+                    }
+                }
+
                 current++;
             }
         }
@@ -67,16 +76,14 @@ namespace get_comment
         {
             cache = q;
             
-            fStream = File.Open(path,FileMode.Create,FileAccess.Write,FileShare.Read);
-
-            
+            this.path = path;
+            File.Open(path, FileMode.Create, FileAccess.Write).Close();
             subFileThead.Start();
             new Thread(new ThreadStart(OutputCmd)).Start();
         }
         public void Close()
         {
             subFileThead.Join();       
-            fStream.Close();
         }
     }
 }

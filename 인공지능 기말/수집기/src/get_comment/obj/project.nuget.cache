@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "XJ0eJikOzhhq7v6krw3eenI+JOcM2EjTzVJ26e9cKXXjHjs3cL1KiTJNC6vWBl1IGw96fvjs3PX0GdpP5skVyw==",
+  "dgSpecHash": "69svvkk/N4O8O0Tr1ZTQuj/Ocvs9SRkV4GVRH3Ia/UJVX/UfaOPNGY8x87QY4vULTH7Tou2yTVxBbqiMk9Td+g==",
   "success": true,
-  "projectFilePath": "E:\\homework_2020_1\\인공지능 기말\\3.유튜브 댓글\\수집기\\src\\get_comment\\get_comment.csproj",
+  "projectFilePath": "E:\\study_code\\인공지능 기말\\수집기\\src\\get_comment\\get_comment.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\cp\\.nuget\\packages\\microsoft.csharp\\4.3.0\\microsoft.csharp.4.3.0.nupkg.sha512",
     "C:\\Users\\cp\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",

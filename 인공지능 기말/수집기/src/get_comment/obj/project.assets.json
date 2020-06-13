@@ -5241,11 +5241,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\homework_2020_1\\인공지능 기말\\3.유튜브 댓글\\수집기\\src\\get_comment\\get_comment.csproj",
+      "projectUniqueName": "E:\\study_code\\인공지능 기말\\수집기\\src\\get_comment\\get_comment.csproj",
       "projectName": "get_comment",
-      "projectPath": "E:\\homework_2020_1\\인공지능 기말\\3.유튜브 댓글\\수집기\\src\\get_comment\\get_comment.csproj",
+      "projectPath": "E:\\study_code\\인공지능 기말\\수집기\\src\\get_comment\\get_comment.csproj",
       "packagesPath": "C:\\Users\\cp\\.nuget\\packages\\",
-      "outputPath": "E:\\homework_2020_1\\인공지능 기말\\3.유튜브 댓글\\수집기\\src\\get_comment\\obj\\",
+      "outputPath": "E:\\study_code\\인공지능 기말\\수집기\\src\\get_comment\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\cp\\AppData\\Roaming\\NuGet\\NuGet.Config"
