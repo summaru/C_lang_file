@@ -1,0 +1,32 @@
+E:\homework_2020_1\인공지능 기말\3.유튜브 댓글\수집기\src\get_comment\bin\Debug\netcoreapp3.1\get_comment.exe
+E:\homework_2020_1\인공지능 기말\3.유튜브 댓글\수집기\src\get_comment\bin\Debug\netcoreapp3.1\get_comment.deps.json
+E:\homework_2020_1\인공지능 기말\3.유튜브 댓글\수집기\src\get_comment\bin\Debug\netcoreapp3.1\get_comment.runtimeconfig.json
+E:\homework_2020_1\인공지능 기말\3.유튜브 댓글\수집기\src\get_comment\bin\Debug\netcoreapp3.1\get_comment.runtimeconfig.dev.json
+E:\homework_2020_1\인공지능 기말\3.유튜브 댓글\수집기\src\get_comment\bin\Debug\netcoreapp3.1\get_comment.dll
+E:\homework_2020_1\인공지능 기말\3.유튜브 댓글\수집기\src\get_comment\bin\Debug\netcoreapp3.1\get_comment.pdb
+E:\homework_2020_1\인공지능 기말\3.유튜브 댓글\수집기\src\get_comment\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+E:\homework_2020_1\인공지능 기말\3.유튜브 댓글\수집기\src\get_comment\bin\Debug\netcoreapp3.1\WebDriver.dll
+E:\homework_2020_1\인공지능 기말\3.유튜브 댓글\수집기\src\get_comment\obj\Debug\netcoreapp3.1\get_comment.csprojAssemblyReference.cache
+E:\homework_2020_1\인공지능 기말\3.유튜브 댓글\수집기\src\get_comment\obj\Debug\netcoreapp3.1\get_comment.AssemblyInfoInputs.cache
+E:\homework_2020_1\인공지능 기말\3.유튜브 댓글\수집기\src\get_comment\obj\Debug\netcoreapp3.1\get_comment.AssemblyInfo.cs
+E:\homework_2020_1\인공지능 기말\3.유튜브 댓글\수집기\src\get_comment\obj\Debug\netcoreapp3.1\get_comment.csproj.CoreCompileInputs.cache
+E:\homework_2020_1\인공지능 기말\3.유튜브 댓글\수집기\src\get_comment\obj\Debug\netcoreapp3.1\get_comment.csproj.CopyComplete
+E:\homework_2020_1\인공지능 기말\3.유튜브 댓글\수집기\src\get_comment\obj\Debug\netcoreapp3.1\get_comment.dll
+E:\homework_2020_1\인공지능 기말\3.유튜브 댓글\수집기\src\get_comment\obj\Debug\netcoreapp3.1\get_comment.pdb
+E:\homework_2020_1\인공지능 기말\3.유튜브 댓글\수집기\src\get_comment\obj\Debug\netcoreapp3.1\get_comment.genruntimeconfig.cache
+E:\study_code\인공지능 기말\수집기\src\get_comment\bin\Debug\netcoreapp3.1\get_comment.exe
+E:\study_code\인공지능 기말\수집기\src\get_comment\bin\Debug\netcoreapp3.1\get_comment.deps.json
+E:\study_code\인공지능 기말\수집기\src\get_comment\bin\Debug\netcoreapp3.1\get_comment.runtimeconfig.json
+E:\study_code\인공지능 기말\수집기\src\get_comment\bin\Debug\netcoreapp3.1\get_comment.runtimeconfig.dev.json
+E:\study_code\인공지능 기말\수집기\src\get_comment\bin\Debug\netcoreapp3.1\get_comment.dll
+E:\study_code\인공지능 기말\수집기\src\get_comment\bin\Debug\netcoreapp3.1\get_comment.pdb
+E:\study_code\인공지능 기말\수집기\src\get_comment\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+E:\study_code\인공지능 기말\수집기\src\get_comment\bin\Debug\netcoreapp3.1\WebDriver.dll
+E:\study_code\인공지능 기말\수집기\src\get_comment\obj\Debug\netcoreapp3.1\get_comment.csprojAssemblyReference.cache
+E:\study_code\인공지능 기말\수집기\src\get_comment\obj\Debug\netcoreapp3.1\get_comment.AssemblyInfoInputs.cache
+E:\study_code\인공지능 기말\수집기\src\get_comment\obj\Debug\netcoreapp3.1\get_comment.AssemblyInfo.cs
+E:\study_code\인공지능 기말\수집기\src\get_comment\obj\Debug\netcoreapp3.1\get_comment.csproj.CoreCompileInputs.cache
+E:\study_code\인공지능 기말\수집기\src\get_comment\obj\Debug\netcoreapp3.1\get_comment.csproj.CopyComplete
+E:\study_code\인공지능 기말\수집기\src\get_comment\obj\Debug\netcoreapp3.1\get_comment.dll
+E:\study_code\인공지능 기말\수집기\src\get_comment\obj\Debug\netcoreapp3.1\get_comment.pdb
+E:\study_code\인공지능 기말\수집기\src\get_comment\obj\Debug\netcoreapp3.1\get_comment.genruntimeconfig.cache
