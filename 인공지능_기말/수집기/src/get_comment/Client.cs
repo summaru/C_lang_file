@@ -16,6 +16,7 @@ namespace get_comment
         private Thread t;
 
         private string url;
+        private int sectionY;
 
         int left = 0;
         int top = 0;
@@ -53,10 +54,10 @@ namespace get_comment
 
             CWrite("wait load sections element");
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
-            wait.Until(d => 
-                d.FindElement(By.Id("sections"))
-            );
-
+            sectionY = int.Parse(wait.Until<string>(d =>
+                { return d.FindElement(By.Id("sections")).GetAttribute("offsetTop"); }
+            ));
+            
 
             Console.Write(Environment.NewLine);
             List<ReadOnlyCollection<IWebElement>> list = new List<ReadOnlyCollection<IWebElement>>();
@@ -122,7 +123,7 @@ namespace get_comment
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             var height = driver.Manage().Window.Size.Height;
             int cut = 0;
-            MoveTo(js, height);
+            MoveTo(js, sectionY);
             do
             {
                 
@@ -135,7 +136,6 @@ namespace get_comment
                 {
                     MoveTo(js, height); 
                     height += height%100;
-                    Console.WriteLine("더해진거{0}", height);
                     cut = list.Count;
                 }
                 
@@ -155,11 +155,8 @@ namespace get_comment
 
         private void MoveTo(IJavaScriptExecutor js,int height)
         {
-            
-            var h = driver.Manage().Window.Size.Height;
-            
             js.ExecuteScript(
-                    string.Format("window.scrollTo(0, {0})", h+height)
+                    string.Format("window.scrollTo(0, {0})", height)
             );
             
         }

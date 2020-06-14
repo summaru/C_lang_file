@@ -55,7 +55,7 @@ namespace get_comment
         {
             try
             {
-                Console.Write("최소한 받음 데이터수를 입력하세요(+오차가 있을수 있습니다,기본값:{0})",pageDown);
+                Console.Write("최소한 받을 코맨트를 입력하세요(오차가 있을수 있습니다,기본값:{0})",pageDown);
                 
                 string rawp = Console.ReadLine();
                 
