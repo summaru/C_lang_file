@@ -135,7 +135,7 @@ namespace get_comment
                
                 CWrite("최소치까지 불려오는 중입니다: "  + (list.Count).ToString()+"개");
                 MoveTo(js, getSectionEndY());
-                Console.WriteLine(getSectionEndY());
+                
 
             } while (list.Count < downCount);
             Console.WriteLine("");
