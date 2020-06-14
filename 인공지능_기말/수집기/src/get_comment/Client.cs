@@ -92,13 +92,16 @@ namespace get_comment
                 
                     if(State.ContentTextEnd)
                     {
-                        Console.WriteLine("content-text 완료");
+                        
                         while(boxQ.TryDequeue(out buf))
                         {
                             spans = buf.FindElements(By.TagName("span"));
                             foreach(var t in spans)res.Enqueue(t.Text);
 
                         }
+                        
+                        Console.WriteLine("content-text 완료"+Environment.NewLine);
+                        driver.Close();
                         State.SpanListEnd = true;
                         break;
                     }
@@ -117,7 +120,7 @@ namespace get_comment
             return res;
         }
 
-        public void Wait() {t.Join();driver.Close();}
+        public void Wait() {t.Join();}
         private Queue<IWebElement> FilterContentBox(IWebElement parent,By by)
         {
             ReadOnlyCollection<IWebElement> list;
