@@ -16,7 +16,9 @@ namespace get_comment
         private Thread t;
 
         private string url;
-        private int cutLine;
+
+        int left = 0;
+        int top = 0;
         public IWebDriver Dirver 
         {
             get
@@ -25,14 +27,17 @@ namespace get_comment
             }
         }
        
-        public Client(string url,int scrollDown,int firstStartLen)
+        public Client(string url,int commentCount)
         {
-            downCount = scrollDown;
+            downCount = commentCount;
             //FirefoxOptions options = new FirefoxOptions();
             //options.AddArgument("--headless");
             driver = new FirefoxDriver(/*options*/);
             this.url = url;
-            cutLine = firstStartLen;
+            
+
+            left = Console.CursorLeft;
+            top = Console.CursorTop;
         }
 
         public Queue<string> StartGetComments(double timeout)
@@ -46,39 +51,12 @@ namespace get_comment
                 throw e;
             }
 
-
+            CWrite("wait load sections element");
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
             wait.Until(d => 
                 d.FindElement(By.Id("sections"))
             );
 
-            int left = Console.CursorLeft;
-            int top = Console.CursorTop;
-
-            IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
-            var h = driver.Manage().Window.Size.Height;//js.ExecuteScript("innerHeight");
-            var h2 = h;
-            
-            for (int i=0;i<downCount;)
-            {   
-                i++;
-               
-                
-                js.ExecuteScript(
-                    string.Format("window.scrollTo(0, {0})",h2)
-                );
-                h2 = h2+h;
-
-                
-
-
-                Console.SetCursorPosition(left, top);
-                Console.Write("Set Comment Scroll : {0}%", Math.Round((double)i * 100.0 / (double)downCount));
-
-                //driver.FindElement(By.TagName("body")).SendKeys(Keys.End);
-            }
-            //"can-show-more"
-            
 
             Console.Write(Environment.NewLine);
             List<ReadOnlyCollection<IWebElement>> list = new List<ReadOnlyCollection<IWebElement>>();
@@ -98,9 +76,8 @@ namespace get_comment
             
             
             var boxQ = FilterContentBox(globalBox, By.TagName("ytd-comment-thread-renderer"));
-            Console.WriteLine("");
-            Console.WriteLine("댓글 상자들을 일정 부분 불려오고 있습니다...");
-            while(true){if(boxQ.Count > cutLine){break;}}
+           
+
 
             
 
@@ -142,14 +119,25 @@ namespace get_comment
         private Queue<IWebElement> FilterContentBox(IWebElement parent,By by)
         {
             ReadOnlyCollection<IWebElement> list;
-
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            var height = driver.Manage().Window.Size.Height;
+            int cut = -1;
             do
             {
+                
+
                 list = parent.FindElements(
                     By.TagName("ytd-comment-thread-renderer"));
-                Console.WriteLine(list.Count);
-            } while (list.Count == 0);
-
+               
+                CWrite("최소치까지 불려오는 중입니다: "  + (list.Count).ToString()+"개");
+                if(list.Count != cut)
+                {
+                    MoveTo(js, height); height += height;
+                    cut = list.Count;
+                }
+                
+            } while (list.Count < downCount);
+            Console.WriteLine("");
             var q = new Queue<IWebElement>();
             new Thread(new ThreadStart(() => {
                 foreach(var child in list)
@@ -160,6 +148,23 @@ namespace get_comment
                 State.ContentTextEnd = true;
             })).Start();
             return q;
+        }
+
+        private void MoveTo(IJavaScriptExecutor js,int height)
+        {
+            
+            var h = driver.Manage().Window.Size.Height;
+            
+            js.ExecuteScript(
+                    string.Format("window.scrollTo(0, {0})", h+height)
+            );
+            
+        }
+
+        private void CWrite(string msg)
+        {
+            Console.SetCursorPosition(left, top);
+            Console.Write(msg);
         }
     }
 

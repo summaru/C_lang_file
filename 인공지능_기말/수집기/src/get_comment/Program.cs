@@ -7,7 +7,7 @@ namespace get_comment
     {
         static string url = "https://www.youtube.com/watch?v=PVcpF7J2oXs";
         static int pageDown = 5;
-        static int timeout = 10;
+        static int timeout = 60;
         static void Main(string[] args)
         {
             
@@ -15,7 +15,7 @@ namespace get_comment
             if(!GetInput())return;
             Console.WriteLine(url);
 
-            Client c = new Client(url,pageDown,0);
+            Client c = new Client(url,pageDown);
             var d = c.Dirver;
             Output file_out = new Output();
             Queue<string> q;
@@ -26,7 +26,7 @@ namespace get_comment
             catch(Exception)
             {
                 d.Close();
-                Console.WriteLine("댓글 데이터들이 탐지 되지 않습니다. url를 확인해주시요");
+                Console.WriteLine("댓글 데이터들이 탐지 되지 않습니다.");
                 return;
             }
  
@@ -55,7 +55,7 @@ namespace get_comment
         {
             try
             {
-                Console.Write("페이지 넘길 횟수를 입력하세요(기본값:{0})",pageDown);
+                Console.Write("최소한 받음 데이터수를 입력하세요(+오차가 있을수 있습니다,기본값:{0})",pageDown);
                 
                 string rawp = Console.ReadLine();
                 

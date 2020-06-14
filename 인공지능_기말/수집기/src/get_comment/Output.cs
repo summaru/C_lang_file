@@ -24,7 +24,7 @@ namespace get_comment
 
             var c = cache;
             
-            byte[] byteD;
+            
             while(true)
             {
                 if(State.SpanListEnd)
