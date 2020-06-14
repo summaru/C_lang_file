@@ -133,7 +133,8 @@ namespace get_comment
                 //if(list.Count != cut)
                 //{
                     MoveTo(js, height); 
-                    height += height;
+                    //오버플로우 방지
+                    height += height % 300;
                 Console.WriteLine("더해진거{0}", height);
 
                 //}
