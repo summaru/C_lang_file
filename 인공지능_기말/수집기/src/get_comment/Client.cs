@@ -134,7 +134,7 @@ namespace get_comment
                 if(list.Count != cut)
                 {
                     MoveTo(js, height); 
-                    height += height;
+                    height += height%100;
                     Console.WriteLine("더해진거{0}", height);
                     cut = list.Count;
                 }
