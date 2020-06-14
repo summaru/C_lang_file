@@ -122,24 +122,21 @@ namespace get_comment
         {
             ReadOnlyCollection<IWebElement> list;
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            int cut = 0;
-            MoveTo(js, getSectionY());
+
+
             do
             {
-                
+                //리눅스 제한
+                Thread.Sleep(500);
+
 
                 list = parent.FindElements(
                     By.TagName("ytd-comment-thread-renderer"));
                
                 CWrite("최소치까지 불려오는 중입니다: "  + (list.Count).ToString()+"개");
-                if(list.Count != cut)
-                {
-                    MoveTo(js, getSectionY()); 
-                    
-                    cut = list.Count;
-                }
-                //리눅스 제한
-                Thread.Sleep(1000);
+                MoveTo(js, getSectionEndY());
+                Console.WriteLine(getSectionEndY());
+
             } while (list.Count < downCount);
             Console.WriteLine("");
             var q = new Queue<IWebElement>();
@@ -169,10 +166,12 @@ namespace get_comment
         }
 
 
-        private int getSectionY()
+        private int getSectionEndY()
         {
-            return int.Parse(sectionY.GetAttribute("offsetTop"));
+            
+            return int.Parse(sectionY.GetAttribute("offsetTop")) + sectionY.Size.Height;
         }
+        
     }
 
 }
