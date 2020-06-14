@@ -121,7 +121,8 @@ namespace get_comment
             ReadOnlyCollection<IWebElement> list;
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             var height = driver.Manage().Window.Size.Height;
-            int cut = -1;
+            int cut = 0;
+            MoveTo(js, height);
             do
             {
                 
