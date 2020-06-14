@@ -132,8 +132,9 @@ namespace get_comment
                 CWrite("최소치까지 불려오는 중입니다: "  + (list.Count).ToString()+"개");
                 //if(list.Count != cut)
                 //{
-                    MoveTo(js, height); height += height;
-                    cut = list.Count;
+                    MoveTo(js, height); 
+                    height += height;
+                    
                 //}
                 
             } while (list.Count < downCount);
@@ -154,7 +155,7 @@ namespace get_comment
         {
             
             var h = driver.Manage().Window.Size.Height;
-            
+            Console.WriteLine(h + height);
             js.ExecuteScript(
                     string.Format("window.scrollTo(0, {0})", h+height)
             );
