@@ -130,11 +130,11 @@ namespace get_comment
                     By.TagName("ytd-comment-thread-renderer"));
                
                 CWrite("최소치까지 불려오는 중입니다: "  + (list.Count).ToString()+"개");
-                if(list.Count != cut)
-                {
+                //if(list.Count != cut)
+                //{
                     MoveTo(js, height); height += height;
                     cut = list.Count;
-                }
+                //}
                 
             } while (list.Count < downCount);
             Console.WriteLine("");
