@@ -7,6 +7,7 @@ namespace get_comment
     {
         static string url = "https://www.youtube.com/watch?v=PVcpF7J2oXs";
         static int pageDown = 5;
+        static int timeout = 10;
         static void Main(string[] args)
         {
             
@@ -20,7 +21,7 @@ namespace get_comment
             Queue<string> q;
             try
             {
-                q = c.StartGetComments();
+                q = c.StartGetComments(timeout);
             }
             catch(Exception)
             {

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using System.Threading;
+using OpenQA.Selenium.Support.UI;
 
 namespace get_comment
 {
@@ -27,14 +28,14 @@ namespace get_comment
         public Client(string url,int scrollDown,int firstStartLen)
         {
             downCount = scrollDown;
-            FirefoxOptions options = new FirefoxOptions();
-            options.AddArgument("--headless");
-            driver = new FirefoxDriver(options);
+            //FirefoxOptions options = new FirefoxOptions();
+            //options.AddArgument("--headless");
+            driver = new FirefoxDriver(/*options*/);
             this.url = url;
             cutLine = firstStartLen;
         }
 
-        public Queue<string> StartGetComments()
+        public Queue<string> StartGetComments(double timeout)
         {
             try 
             {
@@ -44,23 +45,46 @@ namespace get_comment
             {
                 throw e;
             }
+
+
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
+            var sectionsEle = wait.Until<IWebElement>(d => {
+                return d.FindElement(By.Id("sections"));
+            });
+
             int left = Console.CursorLeft;
             int top = Console.CursorTop;
+
             IJavaScriptExecutor js = (IJavaScriptExecutor) driver;
             var h = driver.Manage().Window.Size.Height;//js.ExecuteScript("innerHeight");
             var h2 = h;
-            for(int i=0;i<downCount;)
+            
+            for (int i=0;i<downCount;)
             {   
                 i++;
-                Console.SetCursorPosition(left,top);
-                Console.Write("Loading Youtube Video Comment : {0}%",Math.Round((double)i * 100.0/(double)downCount));
+               
                 
                 js.ExecuteScript(
                     string.Format("window.scrollTo(0, {0})",h2)
                 );
                 h2 = h2+h;
+
+                
+                while (
+                    sectionsEle.GetAttribute("can-show-more") is String)
+                {
+                    Console.SetCursorPosition(left, top);
+                    Console.Write("sync paging");
+                }
+
+                Console.SetCursorPosition(left, top);
+                Console.Write("Set Comment Scroll : {0}%", Math.Round((double)i * 100.0 / (double)downCount));
+
                 //driver.FindElement(By.TagName("body")).SendKeys(Keys.End);
             }
+            //"can-show-more"
+            
+
             Console.Write(Environment.NewLine);
             List<ReadOnlyCollection<IWebElement>> list = new List<ReadOnlyCollection<IWebElement>>();
             ReadOnlyCollection<IWebElement> commentLayouts;
