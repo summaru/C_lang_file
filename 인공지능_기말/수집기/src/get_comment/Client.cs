@@ -100,7 +100,7 @@ namespace get_comment
 
                         }
                         
-                        Console.WriteLine("content-text 완료"+Environment.NewLine);
+                        
                         driver.Close();
                         State.SpanListEnd = true;
                         break;
