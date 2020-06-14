@@ -30,9 +30,9 @@ namespace get_comment
         public Client(string url,int commentCount)
         {
             downCount = commentCount;
-            //FirefoxOptions options = new FirefoxOptions();
-            //options.AddArgument("--headless");
-            driver = new FirefoxDriver(/*options*/);
+            FirefoxOptions options = new FirefoxOptions();
+            options.AddArgument("--headless");
+            driver = new FirefoxDriver(options);
             this.url = url;
             
 
@@ -157,7 +157,7 @@ namespace get_comment
         {
             
             var h = driver.Manage().Window.Size.Height;
-            Console.WriteLine(h + height);
+            
             js.ExecuteScript(
                     string.Format("window.scrollTo(0, {0})", h+height)
             );
