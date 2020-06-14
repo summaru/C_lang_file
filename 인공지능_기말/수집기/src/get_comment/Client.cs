@@ -16,7 +16,7 @@ namespace get_comment
         private Thread t;
 
         private string url;
-        private int sectionY;
+        private IWebElement sectionY;
 
         int left = 0;
         int top = 0;
@@ -54,9 +54,10 @@ namespace get_comment
 
             CWrite("wait load sections element");
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
-            sectionY = int.Parse(wait.Until<string>(d =>
-                { return d.FindElement(By.Id("sections")).GetAttribute("offsetTop"); }
-            ));
+
+            sectionY = wait.Until<IWebElement>(d =>
+                { return d.FindElement(By.Id("sections")); }
+            );
             
 
             Console.Write(Environment.NewLine);
@@ -121,9 +122,8 @@ namespace get_comment
         {
             ReadOnlyCollection<IWebElement> list;
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
-            var height = driver.Manage().Window.Size.Height;
             int cut = 0;
-            MoveTo(js, sectionY);
+            MoveTo(js, getSectionY());
             do
             {
                 
@@ -134,8 +134,8 @@ namespace get_comment
                 CWrite("최소치까지 불려오는 중입니다: "  + (list.Count).ToString()+"개");
                 if(list.Count != cut)
                 {
-                    MoveTo(js, height); 
-                    height += height%100;
+                    MoveTo(js, getSectionY()); 
+                    
                     cut = list.Count;
                 }
                 
@@ -165,6 +165,12 @@ namespace get_comment
         {
             Console.SetCursorPosition(left, top);
             Console.Write(msg);
+        }
+
+
+        private int getSectionY()
+        {
+            return int.Parse(sectionY.GetAttribute("offsetTop"));
         }
     }
 
