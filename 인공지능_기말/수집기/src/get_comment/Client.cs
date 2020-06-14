@@ -48,9 +48,9 @@ namespace get_comment
 
 
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
-            var sectionsEle = wait.Until<IWebElement>(d => {
-                return d.FindElement(By.Id("sections"));
-            });
+            wait.Until(d => 
+                d.FindElement(By.Id("sections"))
+            );
 
             int left = Console.CursorLeft;
             int top = Console.CursorTop;
@@ -70,12 +70,7 @@ namespace get_comment
                 h2 = h2+h;
 
                 
-                while (
-                    sectionsEle.GetAttribute("can-show-more") is String)
-                {
-                    Console.SetCursorPosition(left, top);
-                    Console.Write("sync paging");
-                }
+
 
                 Console.SetCursorPosition(left, top);
                 Console.Write("Set Comment Scroll : {0}%", Math.Round((double)i * 100.0 / (double)downCount));
@@ -87,13 +82,12 @@ namespace get_comment
 
             Console.Write(Environment.NewLine);
             List<ReadOnlyCollection<IWebElement>> list = new List<ReadOnlyCollection<IWebElement>>();
-            ReadOnlyCollection<IWebElement> commentLayouts;
+            IWebElement globalBox;
             try
             {
                
-                var globalBox = driver.FindElement(By.TagName("ytd-comments"));
-                commentLayouts = globalBox.FindElements(
-                    By.TagName("ytd-comment-thread-renderer"));
+                globalBox = driver.FindElement(By.TagName("ytd-comments"));
+                
 
                
             }
@@ -103,7 +97,7 @@ namespace get_comment
             }
             
             
-            var boxQ = FilterContentBox(commentLayouts);
+            var boxQ = FilterContentBox(globalBox, By.TagName("ytd-comment-thread-renderer"));
             Console.WriteLine("");
             Console.WriteLine("댓글 상자들을 일정 부분 불려오고 있습니다...");
             while(true){if(boxQ.Count > cutLine){break;}}
@@ -145,12 +139,22 @@ namespace get_comment
         }
 
         public void Wait() {t.Join();driver.Close();}
-        private Queue<IWebElement> FilterContentBox(ReadOnlyCollection<IWebElement> list)
+        private Queue<IWebElement> FilterContentBox(IWebElement parent,By by)
         {
+            ReadOnlyCollection<IWebElement> list;
+
+            do
+            {
+                list = parent.FindElements(
+                    By.TagName("ytd-comment-thread-renderer"));
+                Console.WriteLine(list.Count);
+            } while (list.Count == 0);
+
             var q = new Queue<IWebElement>();
             new Thread(new ThreadStart(() => {
                 foreach(var child in list)
                 {
+                    
                     q.Enqueue(child.FindElement(By.Id("content-text")));
                 }
                 State.ContentTextEnd = true;

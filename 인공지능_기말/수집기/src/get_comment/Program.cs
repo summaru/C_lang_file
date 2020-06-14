@@ -15,7 +15,7 @@ namespace get_comment
             if(!GetInput())return;
             Console.WriteLine(url);
 
-            Client c = new Client(url,pageDown,5);
+            Client c = new Client(url,pageDown,0);
             var d = c.Dirver;
             Output file_out = new Output();
             Queue<string> q;
