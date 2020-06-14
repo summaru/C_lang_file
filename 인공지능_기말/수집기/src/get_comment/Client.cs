@@ -138,7 +138,8 @@ namespace get_comment
                     
                     cut = list.Count;
                 }
-                
+                //리눅스 제한
+                Thread.Sleep(1000);
             } while (list.Count < downCount);
             Console.WriteLine("");
             var q = new Queue<IWebElement>();
