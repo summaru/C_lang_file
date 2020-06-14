@@ -136,7 +136,7 @@ namespace get_comment
                     MoveTo(js, height); 
                     height += height;
                     Console.WriteLine("더해진거{0}", height);
-
+                    cut = list.Count;
                 }
                 
             } while (list.Count < downCount);
