@@ -17,14 +17,15 @@ namespace get_comment
                 Console.Error.WriteLine("첫번째 인자는 url,두번째 인자는 불려올 댓글 페이지숫자를 입력하세요");
                 return;
             }
-            Console.WriteLine("입력받은 url=",args[0]);
+            Console.Write(args.Length);
+            Console.WriteLine("입력받은 url="+args[0]);
             string url = args[0];
             int pageLoad;
-            string downloadPath = args[3];
+            string downloadPath = args[2];
 
             try
             {
-                pageLoad = int.Parse(args[2]);
+                pageLoad = int.Parse(args[1]);
             }catch(Exception)
             {
                 Console.WriteLine("두번째 인자는 숫자로 입력하세요");
