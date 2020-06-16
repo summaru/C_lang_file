@@ -13,7 +13,6 @@ namespace get_comment
     {
         private int downCount=0;
         private IWebDriver driver;
-        private Thread t;
 
         private string url;
         private IWebElement sectionY;
@@ -41,7 +40,7 @@ namespace get_comment
             top = Console.CursorTop;
         }
 
-        public Queue<string> StartGetComments(double timeout)
+        public string StartGetHTML(double timeout)
         {
             try 
             {
@@ -58,71 +57,25 @@ namespace get_comment
             sectionY = wait.Until<IWebElement>(d =>
                 { return d.FindElement(By.Id("sections")); }
             );
-            
-
             Console.Write(Environment.NewLine);
-            List<ReadOnlyCollection<IWebElement>> list = new List<ReadOnlyCollection<IWebElement>>();
-            IWebElement globalBox;
+            RenderingComment();
+
+            return driver.PageSource;
+
+        }
+
+
+        private void RenderingComment()
+        {
+            IWebElement commentDOM;
             try
             {
-               
-                globalBox = driver.FindElement(By.TagName("ytd-comments"));
-                
-
-               
+                commentDOM = driver.FindElement(By.TagName("ytd-comments"));
             }
-            catch(Exception e) 
+            catch (Exception e)
             {
                 throw e;
             }
-            
-            
-            var boxQ = FilterContentBox(globalBox, By.TagName("ytd-comment-thread-renderer"));
-           
-
-
-            
-
-            var res = new Queue<string>();
-            IWebElement buf;
-            ReadOnlyCollection<IWebElement> spans;
-            t = new Thread(new ThreadStart( ()=> {
-                while(true)
-                {
-                
-                    if(State.ContentTextEnd)
-                    {
-                        
-                        while(boxQ.TryDequeue(out buf))
-                        {
-                            spans = buf.FindElements(By.TagName("span"));
-                            foreach(var t in spans)res.Enqueue(t.Text);
-
-                        }
-                        
-                        
-                        driver.Close();
-                        State.SpanListEnd = true;
-                        break;
-                    }
-
-                    if(!boxQ.TryDequeue(out buf))continue;
-                    spans = buf.FindElements(By.TagName("span"));
-
-                    foreach(var t in spans)
-                    {
-                        if(t.Text.Equals(""))continue;
-                        res.Enqueue(t.Text);
-                    }
-                }
-            } ));
-            t.Start();
-            return res;
-        }
-
-        public void Wait() {t.Join();}
-        private Queue<IWebElement> FilterContentBox(IWebElement parent,By by)
-        {
             ReadOnlyCollection<IWebElement> list;
             IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
 
@@ -133,26 +86,17 @@ namespace get_comment
                 Thread.Sleep(500);
 
 
-                list = parent.FindElements(
+                list = commentDOM.FindElements(
                     By.TagName("ytd-comment-thread-renderer"));
-               
-                CWrite("최소치까지 불려오는 중입니다: "  + (list.Count).ToString()+"개");
+
+                CWrite("최소치까지 불려오는 중입니다: " + (list.Count).ToString() + "개");
                 MoveTo(js, getSectionEndY());
-                
+
 
             } while (list.Count < downCount);
-            Console.WriteLine("");
-            var q = new Queue<IWebElement>();
-            new Thread(new ThreadStart(() => {
-                foreach(var child in list)
-                {
-                    
-                    q.Enqueue(child.FindElement(By.Id("content-text")));
-                }
-                State.ContentTextEnd = true;
-            })).Start();
-            return q;
+
         }
+
 
         private void MoveTo(IJavaScriptExecutor js,int height)
         {
