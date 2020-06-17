@@ -48,8 +48,9 @@ namespace get_comment
             }
 
             WriteDataFile(source, downloadPath);
+            Console.WriteLine("");
             Console.WriteLine("html 데이터 불려오기 성공");
-
+            d.Close();
         }
 
         private static void WriteDataFile(string source,string path)
