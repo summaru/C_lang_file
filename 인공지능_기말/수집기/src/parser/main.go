@@ -35,7 +35,8 @@ func main() {
 
 	output,outOpenErr := os.OpenFile(outputPath,
 		os.O_CREATE | os.O_TRUNC | os.O_RDWR,os.FileMode(0644))
-
+	defer output.Close()
+	
 	if outOpenErr != nil {
 		log.Println("출력 파일 생성이 안됩니다.")
 		log.Println("에러메세지 :"+outOpenErr.Error())
